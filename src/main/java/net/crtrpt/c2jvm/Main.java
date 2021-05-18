@@ -25,15 +25,17 @@ public class Main {
 
         FileInputStream fileInputStream = new FileInputStream("src/main/resources/WhisperClass.class");
         ClassReader reader = new ClassReader(fileInputStream);
-        ClassWriter writer = new ClassWriter(reader, ClassWriter.COMPUTE_MAXS);
-        ClassVisitor change = new ChangeMethodVisitor(writer, visitor, tree);
-        reader.accept(change, ClassReader.EXPAND_FRAMES);
 
+        ClassWriter writer = new ClassWriter(reader, ClassWriter.COMPUTE_MAXS);
+
+        ClassVisitor cv = new ClassVisitorImpl(writer, visitor, tree);
+
+        reader.accept(cv, ClassReader.EXPAND_FRAMES);
         // 获取修改后的 class 文件对应的字节数组
         byte[] code = writer.toByteArray();
         try {
             // 将二进制流写到本地磁盘上
-            FileOutputStream fos = new FileOutputStream("./target/classes/WhisperClassIns.class");
+            FileOutputStream fos = new FileOutputStream("./target/classes/net/WhisperClassIns.class");
             fos.write(code);
             fos.close();
         } catch (IOException e) {

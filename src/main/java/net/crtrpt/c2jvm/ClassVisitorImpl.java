@@ -13,15 +13,22 @@ import static org.objectweb.asm.Opcodes.*;
 /**
  * @author Admin
  */
-public class ChangeMethodVisitor extends ClassVisitor {
+public class ClassVisitorImpl extends ClassVisitor {
 
     EvalVisitor visitor=null;
     ParseTree tree=null;
 
-    ChangeMethodVisitor(ClassVisitor classVisitor, EvalVisitor visitor,ParseTree tree) {
+
+    ClassVisitorImpl(ClassVisitor classVisitor, EvalVisitor visitor, ParseTree tree) {
         super(Opcodes.ASM5, classVisitor);
         this.visitor=visitor;
         this.tree=tree;
+    }
+
+    @Override
+    public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
+       // super.visit(version, access, name, signature, superName, interfaces);
+        super.visit(version, access, "net/WhisperClassIns", signature, superName,interfaces);
     }
 
     @Override
@@ -48,7 +55,7 @@ public class ChangeMethodVisitor extends ClassVisitor {
         System.out.println(visitor.funcDecl);
         visitor.funcDecl.forEach((id, ctx) -> {
             System.out.println("构建函数"+id);
-            List<TerminalNode> params = ctx.idList() != null ? ctx.idList().Identifier() : new ArrayList<TerminalNode>();
+            List<TerminalNode> params = ctx.idList() != null ? ctx.idList().Identifier() : new ArrayList<>();
             ParseTree block = ctx.block();
             MethodVisitor mv = super.visitMethod(ACC_PUBLIC, id, "(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)V", null, null);
             visitor.visit(block);
