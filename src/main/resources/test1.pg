@@ -1,0 +1,16 @@
+// 函数
+
+a=1;
+b=true;
+c="1111";
+
+func squared1(n)  {
+  d=1;
+  e="222";
+  return d*e;
+}
+
+func squared2(n,x)  {
+  return n*x;
+}
+
