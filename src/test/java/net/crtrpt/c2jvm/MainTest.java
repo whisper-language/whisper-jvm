@@ -8,6 +8,7 @@ import java.net.URLClassLoader;
 
 public class MainTest {
 
+
     @Test
     public void testMain() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         System.out.println("测试用例");

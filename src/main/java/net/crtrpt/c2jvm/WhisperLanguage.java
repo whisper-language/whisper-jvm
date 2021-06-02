@@ -1,6 +1,6 @@
 package net.crtrpt.c2jvm;
 
-public interface WhisperInterface {
+public interface WhisperLanguage {
     /**
      * 执行
      */

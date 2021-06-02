@@ -33,6 +33,7 @@ public class Main {
         reader.accept(cv, ClassReader.EXPAND_FRAMES);
         // 获取修改后的 class 文件对应的字节数组
         byte[] code = writer.toByteArray();
+
         try {
             // 将二进制流写到本地磁盘上
             FileOutputStream fos = new FileOutputStream("./target/classes/net/WhisperClassIns.class");
